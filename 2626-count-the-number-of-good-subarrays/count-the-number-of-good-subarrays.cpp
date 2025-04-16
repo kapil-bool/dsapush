@@ -1,22 +1,26 @@
 class Solution {
 public:
     long long countGood(vector<int>& nums, int k) {
-        int n = nums.size();
-        int same = 0, right = -1;
-        unordered_map<int, int> cnt;
-        long long ans = 0;
-        for (int left = 0; left < n; ++left) {
-            while (same < k && right + 1 < n) {
-                ++right;
-                same += cnt[nums[right]];
-                ++cnt[nums[right]];
+        long long ans=0;
+        long long pairs=0;
+        int left=0;
+        int n=nums.size();
+        unordered_map<int,int>mp;
+        for(int right=0;right<n;right++){
+            //apply the condition
+            //must be more than then k;
+            pairs+=mp[nums[right]];
+            mp[nums[right]]++;
+            while(pairs>=k){
+                //one valid is found;
+                ans+=n-right;
+                mp[nums[left]]--;
+                pairs-=mp[nums[left]];
+                left++;
             }
-            if (same >= k) {
-                ans += n - right;
-            }
-            --cnt[nums[left]];
-            same -= cnt[nums[left]];
+
         }
+        
         return ans;
     }
 };

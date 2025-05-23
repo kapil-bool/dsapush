@@ -17,6 +17,7 @@ public:
         //lets finsish this with memoization
         int n=text1.size();
         int m=text2.size();
+        
         vector<vector<int>>dp(n+1,vector<int>(m+1,0));
         //base cases is still same here insted shifting of index is done
         for(int i=0;i<n;i++) dp[i][0]=0;

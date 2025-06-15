@@ -19,20 +19,21 @@ public:
     int lengthOfLIS(vector<int>& nums) {
         //a prev will be maintaned here so do the shifting of -1
         int n =nums.size();
-        vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+        vector<int>current(n+1,0) ,next(n+1,0);
         //prev //and other is index
         for(int index=n-1;index>=0;index--){
             //other changing parameter is the prev
             for(int prev_index=index-1;prev_index>=-1;prev_index--){
                 //cordinate shift also done
-                int len=dp[index+1][prev_index+1];
+                int len=next[prev_index+1];
                 if(prev_index==-1 || nums[prev_index]<nums[index]){
-                    len=max(dp[index+1][index+1]+1,len);
+                    len=max(next[index+1]+1,len);
                 }
-               dp[index][prev_index+1]=len;
+               current[prev_index+1]=len;
             }
+            next=current;
         }
-        return dp[0][0];
+        return next[0];
     }
 };
 

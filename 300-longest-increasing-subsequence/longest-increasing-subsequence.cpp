@@ -19,7 +19,36 @@ public:
     int lengthOfLIS(vector<int>& nums) {
         //a prev will be maintaned here so do the shifting of -1
         int n =nums.size();
-        vector<vector<int>>dp(n,vector<int>(n+1,-1));
-        return helper(0,nums,dp,n,-1);
+        vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+        //prev //and other is index
+        for(int index=n-1;index>=0;index--){
+            //other changing parameter is the prev
+            for(int prev_index=index-1;prev_index>=-1;prev_index--){
+                //cordinate shift also done
+                int len=dp[index+1][prev_index+1];
+                if(prev_index==-1 || nums[prev_index]<nums[index]){
+                    len=max(dp[index+1][index+1]+1,len);
+                }
+               dp[index][prev_index+1]=len;
+            }
+        }
+        return dp[0][0];
     }
 };
+
+// int lengthOfLIS(vector<int>& nums) {
+//     int n = nums.size();
+//     vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+
+//     // index: from n-1 to 0
+//     for (int index = n - 1; index >= 0; index--) {
+//         for (int prev_index = index - 1; prev_index >= -1; prev_index--) {
+//             int len = dp[index + 1][prev_index + 1]; // no take
+//             if (prev_index == -1 || nums[prev_index] < nums[index]) {
+//                 len = max(len, 1 + dp[index + 1][index + 1]); // take
+//             }
+//             dp[index][prev_index + 1] = len;
+//         }
+//     }
+//     return dp[0][0]; // shifted -1 becomes 0
+// }

@@ -8,5 +8,6 @@ public:
 
         }
         return ans+1;
+        //linear time hai 
     }
 };

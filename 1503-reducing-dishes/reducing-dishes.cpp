@@ -16,7 +16,7 @@ public:
         //Dishes can be prepared in any order and the chef can discard some dishes to get this maximum value. 
         //because of this statments it is just pick not pick only
         int n=satisfaction.size(); 
-       sort(satisfaction.begin(), satisfaction.end());
+       sort(satisfaction.begin(), satisfaction.end()); //hier satisfaction here the one in the end more time maximize it yippi
         vector<vector<int>>dp(n,vector<int>(n+1,-1));
         return helper(0,0,satisfaction,dp);
 

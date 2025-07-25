@@ -11,10 +11,10 @@ public:
          vector<int> dist(n + 1, 1e9);
         dist[k] = 0;
 
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+       queue<pair<int, int>> pq;
         pq.push({0, k}); // {time, node}
         while(!pq.empty()){
-            auto tpelem=pq.top();
+            auto tpelem=pq.front();
             pq.pop();
             int time=tpelem.first;
             int node=tpelem.second;

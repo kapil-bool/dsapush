@@ -48,6 +48,7 @@ public:
             int a = seen[u] != -1 ? seen[u] : 0;
             int b = seen[v] != -1 ? seen[v] : 0;
             count += min(cnt, a + b);
+            //so here insted of counting normally here we are doing it like count the next moves from the both vertex if its less then its the ans if more than the answer is all 
         }
 
         return count;

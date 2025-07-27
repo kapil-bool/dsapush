@@ -39,3 +39,4 @@ public:
         return cost[m-1][n-1];
     }
 };
+//its just relaxation question not something taht haptic 

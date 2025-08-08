@@ -1,7 +1,7 @@
 class Solution {
 public:
     typedef long long ll;
-    static const ll MOD = 1000000007LL;  // Define MOD as 64 bit literal
+    static const ll MOD = 1000000007LL;  
 
     ll helper(ll base, ll exp) {
         ll result = 1;

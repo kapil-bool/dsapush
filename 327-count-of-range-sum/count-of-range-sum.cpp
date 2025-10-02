@@ -1,29 +1,67 @@
 class Solution {
 public:
+    vector<int> tree;
+    int n;
+
+    // Update segment tree at index idx by val
+    void update(int idx, int val, int node, int start, int end) {
+        if (start == end) {
+            tree[node] += val;
+            return;
+        }
+        int mid = (start + end) / 2;
+        if (idx <= mid)
+            update(idx, val, 2*node+1, start, mid);
+        else
+            update(idx, val, 2*node+2, mid+1, end);
+
+        tree[node] = tree[2*node+1] + tree[2*node+2];
+    }
+
+    // Query sum in segment tree in range [l, r]
+    int query(int l, int r, int node, int start, int end) {
+        if (r < start || end < l) return 0;          // no overlap
+        if (l <= start && end <= r) return tree[node]; // total overlap
+        int mid = (start + end) / 2;
+        return query(l, r, 2*node+1, start, mid) + query(l, r, 2*node+2, mid+1, end);
+    }
+
     int countRangeSum(vector<int>& nums, int lower, int upper) {
-        //ok lets decode it 
-        //oo so the sum must be less than uppper range and more than the lower one i get it now 
-        // 1 <= nums.length <= 105 so this may be a problem
-        //use prefix and suffix here 
-        multiset<long long> prefixSums; //allow duplicates that it 
-        long long sum = 0;
-        int count = 0;
-        prefixSums.insert(0);
-        for(int i=0;i<nums.size();i++){
-            //insert it 
-            sum+=nums[i];
-            //range as well as indivdual can be the answer 
-            //so check  for the sum as range and also for itself also //so this will be enough ig
-            //multiple will be there 0 to 3 all valid 0 1 2 3 all indival and grop of 2 3 and whole also
-            auto left = prefixSums.lower_bound(sum - upper);
-            auto right = prefixSums.upper_bound(sum - lower);
-
-            count += distance(left, right);
-
-            // Insert current prefix sum for future iterations
-            prefixSums.insert(sum);
+        // lets do coordinate comprison upfront only 
+        // no build query update 
+        // now coordinate compression this is applied on unique value here anwer is not like in the array unique but the prefix one which are unique 
+        vector<long long> prefix = {0}; // all 0 start assign
+        set<long long> unique;          // use long long to avoid overflow
+        for(auto &i : nums){
+            prefix.push_back(prefix.back() + (long long)i); // cast to long long
         }
 
-        return count;
+        // now unique one 
+        for (auto p : prefix) {
+            unique.insert(p);
+            unique.insert(p - lower);
+            unique.insert(p - upper);
+        }
+
+        // make index of this unique
+        vector<long long> sorted(unique.begin(), unique.end());
+        n = sorted.size();
+        tree.assign(4*n, 0);
+
+        auto getIndex = [&](long long x) {
+            return (int)(lower_bound(sorted.begin(), sorted.end(), x) - sorted.begin());
+        };
+
+        int answer = 0;
+        for(auto p : prefix){
+            // traversing the main getting the index from the get index query and update
+            // now here also check here for range
+            int left = getIndex(p - upper);
+            int right = getIndex(p - lower);
+            if(left <= right) answer += query(left, right, 0, 0, n-1);
+            update(getIndex(p), 1, 0, 0, n-1);
+        }
+
+        return answer;
     }
 };

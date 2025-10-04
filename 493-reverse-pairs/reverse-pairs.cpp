@@ -25,7 +25,7 @@ public:
         if (l <= start && end <= r) return tree[index];
         int mid = (start + end) / 2;
 
-        // \U0001f527 FIX 3: changed to 0-based children here too
+       
         return query(2 * index + 1, start, mid, l, r)
              + query(2 * index + 2, mid + 1, end, l, r);
     }

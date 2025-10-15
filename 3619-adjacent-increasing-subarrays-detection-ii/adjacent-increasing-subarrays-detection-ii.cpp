@@ -17,6 +17,7 @@ public:
              count=1;
              //now when ever ther is a change in 
           }
+          //storing is there and u got it
           ans=max(ans,min(prevl,count));
           ans=max(ans,count/2);
         }

@@ -5,11 +5,6 @@ public:
         int sum = 0;
         int curr = nums.back(); 
 
-        for (int i = 0; i < k; i++) {
-            sum += curr;
-            curr++;
-        }
-
-        return sum;
+        return curr*k+(k*(k-1)/2);
     }
 };

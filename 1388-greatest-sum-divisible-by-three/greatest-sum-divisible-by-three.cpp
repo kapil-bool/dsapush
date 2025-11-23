@@ -20,3 +20,5 @@ public:
         return helper(0,0,n,nums,dp);
     }
 };
+//there can be one more implenttation of taking all the one 
+//sort it if mod1 is there in a stack and mode 2 in other stack start ffrom top paring the values from bothh stack and do it till u get the stack empty any one and oviously include the 3 i.e mod 3 

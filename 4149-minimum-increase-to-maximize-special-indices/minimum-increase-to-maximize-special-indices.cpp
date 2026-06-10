@@ -20,8 +20,7 @@ public:
         take.first += 1;
         take.second += max(
             0LL,
-            max(nums[index - 1], nums[index + 1]) +
-            1LL - nums[index]
+            max(nums[index - 1], nums[index + 1]) +1LL - nums[index]
         );
 
         pair<int,ll> ntake = helper(index + 1);

@@ -25,7 +25,6 @@ public:
                     else if(i+1<s1.size() && s1[i+1]=='0'){
                         ans+=2;
                         s1[i]='0';
-                        s1[i+1]='0';
                     }
                     //compressedd both here 
                     else if(i-1>=0){
